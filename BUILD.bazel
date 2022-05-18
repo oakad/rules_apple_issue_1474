@@ -1,0 +1,30 @@
+
+objc_library(
+	name = "t1-objc",
+	srcs = ["t1.mm"],
+	deps = [
+		"@com_google_absl//absl/strings:str_format",
+		"@com_google_absl//absl/strings:strings",
+	],
+)
+
+cc_library(
+	name = "t1-cc",
+	srcs = ["t1.cc"],
+	deps = [
+		":t1-objc",
+		"@com_google_absl//absl/strings:str_format",
+		"@com_google_absl//absl/strings:strings",
+	],
+	alwayslink = True,
+)
+
+cc_binary(
+	name = "t2",
+	srcs = ["t2.cc"],
+	deps = [
+		":t1-cc",
+		"@com_google_absl//absl/strings:str_format",
+	],
+	linkstatic = True,
+)
